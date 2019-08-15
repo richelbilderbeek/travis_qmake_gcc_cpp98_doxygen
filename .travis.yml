@@ -4,8 +4,12 @@ compiler: gcc
 
 install: 
   - sudo apt update -qq
+  # Doxygen
+  - sudo apt-get install doxygen
 
 script: 
   - qmake
   - make
   - ./travis_qmake_gcc_cpp98_doxygen
+  # Create Doxyfile
+  - doxygen -g > /dev/null; ( cat Doxyfile ; echo "QUIET=TRUE"; echo "EXCLUDE=README.md" ; echo "WARN_AS_ERROR=YES") | doxygen -
